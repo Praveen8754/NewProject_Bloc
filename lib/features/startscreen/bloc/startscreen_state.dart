@@ -1,4 +1,4 @@
-part of 'drawer_bloc.dart';
+part of 'startscreen_bloc.dart';
 
 @immutable
 abstract class DrawerState {}

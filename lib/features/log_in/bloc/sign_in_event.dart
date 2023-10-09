@@ -17,3 +17,8 @@ class PasswordChanged extends LoginEvent {
 }
 
 class LoginSubmitted extends LoginEvent {}
+
+
+class OpenDrawerEvent extends LoginEvent {}
+
+class CloseDrawerEvent extends LoginEvent {}

@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:blocc/features/form_submission_status.dart';
-import 'package:blocc/features/sign_in/bloc/sign_in_state.dart';
+import 'package:blocc/features/log_in/bloc/sign_in_state.dart';
+//import 'package:blocc/features/sign_in/bloc/log_in_state.dart';
 import 'package:meta/meta.dart';
 
 import '../../auth_repository.dart';
