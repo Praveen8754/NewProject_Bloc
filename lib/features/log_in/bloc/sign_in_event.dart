@@ -16,9 +16,14 @@ class PasswordChanged extends LoginEvent {
   PasswordChanged(this.password);
 }
 
-class LoginSubmitted extends LoginEvent {}
+class LoginButtonPressed extends LoginEvent {
+  final String username;
+  final String password;
+
+  LoginButtonPressed({required this.username, required this.password});
+
+  @override
+  List<Object> get props => [username, password];
+}
 
 
-class OpenDrawerEvent extends LoginEvent {}
-
-class CloseDrawerEvent extends LoginEvent {}

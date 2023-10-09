@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:blocc/features/form_submission_status.dart';
 import 'package:blocc/features/log_in/bloc/sign_in_state.dart';
+
 //import 'package:blocc/features/sign_in/bloc/log_in_state.dart';
 import 'package:meta/meta.dart';
 
@@ -45,11 +46,13 @@ class SignInBloc extends Bloc<SignInEvent, LoginState> {
   void _passwordEvent(PasswordEvent event,Emitter<SignInState> emit){
     print("my password is ${event.password}");
     emit(state.copyWith(password:event.password));
-  }*//*
+  }*/ /*
 
 }
 */
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+
+
   LoginBloc() : super(LoginInitial());
 
   @override
@@ -58,8 +61,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       // Handle email change event
     } else if (event is PasswordChanged) {
       // Handle password change event
-    } else if (event is LoginSubmitted) {
-      // Handle login submission event
+    } else if (event is LoginButtonPressed) {
+      yield LoginLoading();
+      try {
+        if (await performAuthentication(event.username, event.password)) {
+          yield LoginSuccess();
+        } else {
+          yield LoginFailure(error: 'Invalid username or password');
+        }
+      } catch (error) {
+        yield LoginFailure(error: 'Authentication failed');
+      }
     }
   }
+}
+
+Future<bool> performAuthentication(String username, String password) async {
+  // Replace with actual API call to check the credentials in your database.
+  // Return true if authentication is successful; otherwise, return false.
+  await Future.delayed(const Duration(seconds: 2)); // Simulate API delay.
+  return username == 'example' && password == 'password';
 }

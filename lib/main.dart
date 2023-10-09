@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'features/log_in/bloc/sign_in_bloc.dart';
 import 'features/log_in/ui/log_in.dart';
 //import 'features/sign_in/ui/log_in.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'bloccc',
       theme: ThemeData(
         // This is the theme of your application.
         //

@@ -8,6 +8,8 @@ import '../bloc/sign_in_state.dart';
 class LoginView extends StatelessWidget {
   final formkey = GlobalKey<FormState>();
   final LoginBloc Loginbloc = LoginBloc();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,7 @@ class LoginView extends StatelessWidget {
 
   Widget usernamefield() {
     return TextFormField(
+      controller: usernameController,
         onChanged: (email) {
           Loginbloc.add(EmailChanged(email));},
       decoration:
@@ -54,6 +57,7 @@ class LoginView extends StatelessWidget {
 
   Widget passwordfield() {
     return TextFormField(
+        controller: passwordController,
         obscureText: true,
         onChanged: (password) {
           Loginbloc.add(PasswordChanged(password));},
@@ -67,6 +71,8 @@ class LoginView extends StatelessWidget {
   }
 
   Widget loginbutton() {
-    return ElevatedButton(onPressed: () {Loginbloc.add(LoginSubmitted());}, child: const Text('Login'));
+    return ElevatedButton(onPressed: () { final username = usernameController.text;
+    final password = passwordController.text;
+    Loginbloc.add(LoginButtonPressed(username: username, password: password));}, child: const Text('Login'));
   }
 }
