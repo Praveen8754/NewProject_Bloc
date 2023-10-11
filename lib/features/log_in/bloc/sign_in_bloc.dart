@@ -1,14 +1,14 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'dart:html';
+import 'dart:js';
 import 'package:bloc/bloc.dart';
-import 'package:blocc/features/form_submission_status.dart';
 import 'package:blocc/features/log_in/bloc/sign_in_state.dart';
-
-//import 'package:blocc/features/sign_in/bloc/log_in_state.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:http/http.dart' as http;
 
-import '../../auth_repository.dart';
-
+import '../reposi/login_repo.dart';
 part 'sign_in_event.dart';
 //part 'sign_in_state.dart';
 
@@ -53,11 +53,54 @@ class SignInBloc extends Bloc<SignInEvent, LoginState> {
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
 
-  LoginBloc() : super(LoginInitial());
+  LoginBloc() : super(LoginInitial()) {
 
-  @override
-  Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is EmailChanged) {
+  on<LogInitialEvent>(logininitialevent);
+ //on<UsernameChanged> (usernamechanged);
+ //on<PasswordChanged> (password);
+ on<LoginButtonPressed> (loginbutton);
+}
+
+  FutureOr<void> logininitialevent(
+      LogInitialEvent event, Emitter<LoginState> emit) async {
+    emit(LoginLoading());
+    emit(LoginInitial());
+  }
+
+
+ // FutureOr<void> emailchanged{
+
+
+
+
+
+
+
+
+
+  FutureOr<void> loginbutton(
+      LoginButtonPressed event, Emitter<LoginState> emit) async {
+    emit(LoginLoading());
+    try {
+      if (await  Loginrepo. validateuserandpassword(event.username,event.password) ) {
+        emit (LoginSuccess());
+      } else {
+        emit (LoginFailure(error: 'Invalid username or password'));
+      }
+    } catch (error) {
+      emit (LoginFailure(error: 'Authentication failed'));
+    }
+  }
+  }
+
+
+
+
+ // @override
+  /*Stream<LoginState> mapEventToState(LoginEvent event) async* {
+    if(event is LoginInitial){
+
+    }else if (event is EmailChanged) {
       // Handle email change event
     } else if (event is PasswordChanged) {
       // Handle password change event
@@ -73,12 +116,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield LoginFailure(error: 'Authentication failed');
       }
     }
-  }
-}
+  }*/
 
-Future<bool> performAuthentication(String username, String password) async {
-  // Replace with actual API call to check the credentials in your database.
-  // Return true if authentication is successful; otherwise, return false.
-  await Future.delayed(const Duration(seconds: 2)); // Simulate API delay.
-  return username == 'example' && password == 'password';
-}
+
+
+
+

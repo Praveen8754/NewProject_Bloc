@@ -6,9 +6,12 @@ abstract class LoginEvent  {
   List<Object> get props => [];
 }
 
-class EmailChanged extends LoginEvent {
-  final String email;
-  EmailChanged(this.email);
+class LogInitialEvent extends LoginEvent {}
+
+
+class UsernameChanged extends LoginEvent {
+  final String username;
+  UsernameChanged(this.username);
 }
 
 class PasswordChanged extends LoginEvent {

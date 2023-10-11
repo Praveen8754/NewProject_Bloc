@@ -21,22 +21,26 @@ class LoginView extends StatelessWidget {
       },
       builder: (context, state) {
         switch (state.runtimeType) {
-          case LoginLoading:
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
 
-          case LoginSuccess:
+          case LoginInitial:
             return Form(
               key: formkey,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [usernamefield(), passwordfield(), loginbutton()],
                 ),
               ),
             );
+
+          case LoginLoading:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+
+          default:
+            return const SizedBox();
         }
       },
     ));
@@ -46,7 +50,7 @@ class LoginView extends StatelessWidget {
     return TextFormField(
       controller: usernameController,
         onChanged: (email) {
-          Loginbloc.add(EmailChanged(email));},
+          Loginbloc.add(UsernameChanged(email));},
       decoration:
           const InputDecoration(icon: Icon(Icons.person), hintText: 'Username'),
       validator: (value) {
