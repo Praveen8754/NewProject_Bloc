@@ -63,8 +63,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   FutureOr<void> logininitialevent(
       LogInitialEvent event, Emitter<LoginState> emit) async {
-    emit(LoginLoading());
-    emit(LoginInitial());
+       emit(LoginInitial());
   }
 
   FutureOr<void> loginbutton(
