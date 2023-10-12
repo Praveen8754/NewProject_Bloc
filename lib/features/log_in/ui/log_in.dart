@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../homepage/ui/Homepage.dart';
 import '../bloc/sign_in_bloc.dart';
 import '../bloc/sign_in_state.dart';
 
@@ -23,6 +24,10 @@ class LoginView extends StatelessWidget {
         if(state is LoginFailure){
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Invalid Username or Password')));
         }
+
+        if(state is LoginSuccess){
+          Navigator.push(context,MaterialPageRoute(builder: (context)=> const Homepage()));
+        }
       },
       builder: (context, state) {
         switch (state.runtimeType) {
@@ -43,6 +48,7 @@ class LoginView extends StatelessWidget {
             return const Center(
               child: CircularProgressIndicator(),
             );
+
 
           default:
             return const SizedBox();
