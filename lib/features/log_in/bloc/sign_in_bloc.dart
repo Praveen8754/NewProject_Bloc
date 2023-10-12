@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:html';
-import 'dart:js';
+//import 'dart:html';
+//import 'dart:js';
 import 'package:bloc/bloc.dart';
 import 'package:blocc/features/log_in/bloc/sign_in_state.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +57,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   on<LogInitialEvent>(logininitialevent);
  //on<UsernameChanged> (usernamechanged);
- //on<PasswordChanged> (password);
- on<LoginButtonPressed> (loginbutton);
+ //on<PasswordChangedevent> (passwordev);
+ on<LoginButtonPressedevent> (loginbutton);
 }
 
   FutureOr<void> logininitialevent(
@@ -67,19 +67,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginInitial());
   }
 
-
- // FutureOr<void> emailchanged{
-
-
-
-
-
-
-
-
-
   FutureOr<void> loginbutton(
-      LoginButtonPressed event, Emitter<LoginState> emit) async {
+      LoginButtonPressedevent event, Emitter<LoginState> emit) async {
     emit(LoginLoading());
     try {
       if (await  Loginrepo. validateuserandpassword(event.username,event.password) ) {

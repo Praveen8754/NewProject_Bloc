@@ -14,10 +14,15 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text('Login'), backgroundColor: Colors.greenAccent[400],),
+        resizeToAvoidBottomInset: false,
         body: BlocConsumer<LoginBloc, LoginState>(
+
       bloc: Loginbloc,
       listener: (context, state) {
-        // TODO: implement listener
+        if(state is LoginFailure){
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Invalid Username or Password')));
+        }
       },
       builder: (context, state) {
         switch (state.runtimeType) {
@@ -49,8 +54,7 @@ class LoginView extends StatelessWidget {
   Widget usernamefield() {
     return TextFormField(
       controller: usernameController,
-        onChanged: (email) {
-          Loginbloc.add(UsernameChanged(email));},
+       // onChanged: (username) { Loginbloc.add(UsernameChanged(username));},
       decoration:
           const InputDecoration(icon: Icon(Icons.person), hintText: 'Username'),
       validator: (value) {
@@ -63,12 +67,12 @@ class LoginView extends StatelessWidget {
     return TextFormField(
         controller: passwordController,
         obscureText: true,
-        onChanged: (password) {
-          Loginbloc.add(PasswordChanged(password));},
+       // onChanged: (password) { Loginbloc.add(PasswordChangedevent(password));},
         decoration: const InputDecoration(
             icon: Icon(Icons.security), hintText: 'Password'),
         validator: (value) {
-          if (value!.length < 8) {
+          if (value!.isEmpty) {
+            return 'Error';
             return "Password length must be Greater than 7Characters";
           }
         });
@@ -77,6 +81,6 @@ class LoginView extends StatelessWidget {
   Widget loginbutton() {
     return ElevatedButton(onPressed: () { final username = usernameController.text;
     final password = passwordController.text;
-    Loginbloc.add(LoginButtonPressed(username: username, password: password));}, child: const Text('Login'));
+    Loginbloc.add(LoginButtonPressedevent(username: username, password: password));}, child: const Text('Login'));
   }
 }

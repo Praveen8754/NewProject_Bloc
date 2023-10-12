@@ -9,21 +9,21 @@ abstract class LoginEvent  {
 class LogInitialEvent extends LoginEvent {}
 
 
-class UsernameChanged extends LoginEvent {
+class UsernameChangedevent extends LoginEvent {
   final String username;
-  UsernameChanged(this.username);
+  UsernameChangedevent(this.username);
 }
 
-class PasswordChanged extends LoginEvent {
+class PasswordChangedevent extends LoginEvent {
   final String password;
-  PasswordChanged(this.password);
+  PasswordChangedevent(this.password);
 }
 
-class LoginButtonPressed extends LoginEvent {
+class LoginButtonPressedevent extends LoginEvent {
   final String username;
   final String password;
 
-  LoginButtonPressed({required this.username, required this.password});
+  LoginButtonPressedevent({required this.username, required this.password});
 
   @override
   List<Object> get props => [username, password];
