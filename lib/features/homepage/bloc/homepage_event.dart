@@ -4,4 +4,7 @@ part of 'homepage_bloc.dart';
 abstract class HomepageEvent {}
 
 class homepageinitialevent extends HomepageEvent {}
-class drawerclickedevent extends HomepageEvent {}
+
+class OpenDrawer extends HomepageEvent {}
+
+class CloseDrawer extends HomepageEvent {}

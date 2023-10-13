@@ -12,20 +12,28 @@ part 'homepage_event.dart';
 part 'homepage_state.dart';
 
 class HomepageBloc extends Bloc<HomepageEvent, HomepageState> {
-  HomepageBloc() : super(HomepageInitial()) {
+  HomepageBloc() : super(HomepageInitial(DrawerState(isDrawerOpen: true))) {
     on<homepageinitialevent>(Homepageinitialevent);
-    on<drawerclickedevent> (Drawerclickedevent);
-
+    on<OpenDrawer> (opendrawerclickedevent);
+   on<CloseDrawer> (closedrawerclickedevent);
   }
 
   FutureOr<void> Homepageinitialevent(
       homepageinitialevent event, Emitter<HomepageState> emit) async {
-    emit(HomepageInitial());
+    emit(HomepageInitial(DrawerState(isDrawerOpen: true)));
   }
 
-  FutureOr<void> Drawerclickedevent(
-      drawerclickedevent event, Emitter<HomepageState> emit) async {
-    emit(Drawerclickedstate());
+  FutureOr<void> opendrawerclickedevent(
+      OpenDrawer event, Emitter<HomepageState> emit) async {
+    emit(DrawerState(isDrawerOpen: true));
   }
+
+
+ FutureOr<void> closedrawerclickedevent(
+      CloseDrawer event, Emitter<HomepageState> emit) async {
+    emit(DrawerState(isDrawerOpen: false));
+  }
+
+
 
 }
